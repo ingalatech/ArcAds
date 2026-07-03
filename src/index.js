@@ -299,7 +299,7 @@ export class ArcAds {
    * @param {string} key Targeting parameter key.
    * * @param {string} value Targeting parameter value or array of values.
    */
-  setPageLeveTargeting(key, value) { //TODO check for pubads
+  setPageLevelTargeting(key, value) { //TODO check for pubads
     googletag.pubads().setTargeting(key, value);
   }
 

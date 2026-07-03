@@ -174,7 +174,7 @@ describe('arcads', () => {
         setTargeting: setTargetingMock,
       });
 
-      arcAds.setPageLeveTargeting('testKey', 'testValue');
+      arcAds.setPageLevelTargeting('testKey', 'testValue');
       expect(setTargetingMock).toHaveBeenCalledTimes(1);
       expect(setTargetingMock).toHaveBeenCalledWith('testKey', 'testValue');
     });
