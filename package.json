@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "jest --config jest.config.js --no-cache --coverage",
-    "build": "rm -rf dist && NODE_OPTIONS=--openssl-legacy-provider webpack --env production --mode development",
+    "build": "rm -rf dist && NODE_OPTIONS=--openssl-legacy-provider webpack --env production",
     "dev": "rm -rf dist && webpack --env development --mode development --watch",
     "docs": "rm -rf docs && ./node_modules/.bin/esdoc && open docs/index.html",
     "debug": "node debugging.js",

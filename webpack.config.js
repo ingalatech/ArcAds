@@ -1,21 +1,6 @@
 const ESLintPlugin = require('eslint-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 
 const path = require('path');
-
-const generateOptimizations = (env) => {
-  const optimizations = { minimize: false };
-  if (env.production) {
-    optimizations.minimize = true;
-    optimizations.minimizer = [
-      new TerserPlugin({
-        terserOptions: { format: { comments: false }, },
-        extractComments: false,
-      })
-    ];
-  }
-  return optimizations;
-};
 
 const generatePlugins = (env) => {
   const plugins = [];
@@ -27,14 +12,17 @@ const generatePlugins = (env) => {
 };
 
 module.exports = env => ({
+  mode: env.production ? 'production' : 'development',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'arcads.js',
-    libraryTarget: 'umd',
-    globalObject: 'typeof self !== \'undefined\' ? self : this',
+    library: {
+      name: 'ArcAds',
+      type: 'umd',
+    },
   },
-  devtool: env.development ? 'inline-source-map' : false,
+  devtool: env.development ? 'eval-source-map' : false,
   resolve: { extensions: ['.js', '.json'] },
   module: {
     rules: [
@@ -50,6 +38,5 @@ module.exports = env => ({
       },
     ],
   },
-  optimization: generateOptimizations(env),
   plugins: generatePlugins(env),
 });
