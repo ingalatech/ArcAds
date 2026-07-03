@@ -84,10 +84,10 @@ describe('sendLog', () => {
   });
 
   test('sendLog if window undefined', () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
     delete global.window;
     sendLog('testFunc()', 'a test of the send log', null);
-    setTimeout(() => {
-      expect(console.error).toHaveBeenCalled();
-    }, 500);
+    expect(console.error).toHaveBeenCalledTimes(1);
+    console.error.mockRestore();
   });
 });
