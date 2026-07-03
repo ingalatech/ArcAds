@@ -49,7 +49,7 @@ To get started you must include the script tag for ArcAds in your page header, l
 </script>
 ```
 
-`collapseEmptyDivs` is an optional parameter that directly toggles `googletag.pubads().collapseEmptyDivs()`
+`collapseEmptyDivs` is an optional parameter that sets `googletag.setConfig({ collapseDiv: 'ON_NO_FILL' })`
 
 Alternatively, if you're using a bundler you can use the library as a module.
 

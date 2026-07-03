@@ -151,14 +151,12 @@ describe('arcads', () => {
     const setConfigMock = jest.fn();
     const enableAsyncRenderingMock = jest.fn();
     const enableServicesMock = jest.fn();
-    const collapseEmptyDivsMock = jest.fn();
     const addEventListenerMock = jest.fn();
 
     beforeAll(() => {
       global.googletag.setConfig = setConfigMock;
       global.googletag.pubads = jest.fn().mockReturnValue({
         enableAsyncRendering: enableAsyncRenderingMock,
-        collapseEmptyDivs: collapseEmptyDivsMock,
         addEventListener: addEventListenerMock,
       });
 
@@ -175,7 +173,6 @@ describe('arcads', () => {
       expect(setConfigMock).toHaveBeenCalledWith({ disableInitialLoad: true, singleRequest: true });
       expect(enableAsyncRenderingMock).toHaveBeenCalledTimes(1);
       expect(enableServicesMock).toHaveBeenCalledTimes(1);
-      expect(collapseEmptyDivsMock).toHaveBeenCalledTimes(0);
       expect(addEventListenerMock).toHaveBeenCalledTimes(0);
     });
 

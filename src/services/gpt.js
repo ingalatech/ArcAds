@@ -94,7 +94,7 @@ export function dfpSettings(handleSlotRenderEnded) {
 
   if (this.collapseEmptyDivs) {
     sendLog('dfpSettings()', 'This wrapper is set to collapse any empty divs.', null);
-    window.googletag.pubads().collapseEmptyDivs();
+    window.googletag.setConfig({ collapseDiv: 'ON_NO_FILL' });
   }
   window.googletag.enableServices();
 
