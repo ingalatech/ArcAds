@@ -1,6 +1,6 @@
 {
   "name": "@ingala/arcads",
-  "version": "6.2.0",
+  "version": "6.2.0-ingala.0-alpha.0",
   "description": "ArcAds is a GPT wrapper created by Arc XP with publishers in mind.",
   "main": "dist/arcads.js",
   "files": [
@@ -17,7 +17,8 @@
     "debug": "node debugging.js",
     "mock": "webpack-dev-server --progress --hot --inline && npm run test",
     "lint": "eslint --config .eslintrc.js ./src/**/*.js",
-    "deploy": "npm test && npm run build && npm publish"
+    "deploy": "npm test && npm run build && npm publish",
+    "deploy:alpha": "npm test && npm run build && npm publish --tag alpha"
   },
   "repository": {
     "type": "git",
