@@ -62,7 +62,7 @@ export class ArcAds {
         const position = this.positions[adType] + 1 || 1;
         this.positions[adType] = position;
 
-        const positionParam = Object.assign(targeting, { position });
+        const positionParam = Object.assign(targeting, { position: String(position) });
         Object.assign(params, { targeting: positionParam });
       }
 
@@ -267,8 +267,7 @@ export class ArcAds {
     }
     //ensure library is present and able to send out SRA ads
     if (window && window.googletag && googletag.pubadsReady) { // eslint-disable-line
-      window.googletag.setConfig({ disableInitialLoad: true });
-      window.googletag.pubads().enableSingleRequest();
+      window.googletag.setConfig({ disableInitialLoad: true, singleRequest: true });
       window.googletag.pubads().enableAsyncRendering();
 
       this.registerAdCollectionSingleCall(this.adsList, bidderTimeout);

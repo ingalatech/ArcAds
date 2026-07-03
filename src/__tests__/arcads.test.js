@@ -147,12 +147,11 @@ describe('arcads', () => {
       window.googletag.pubadsReady = true;
       window.googletag.setConfig = jest.fn();
       window.googletag.pubads = jest.fn().mockReturnValue({
-        enableSingleRequest: jest.fn(),
         enableAsyncRendering: jest.fn(),
       });
 
       arcAds.sendSingleCallAds();
-      expect(window.googletag.setConfig).toHaveBeenCalledWith({ disableInitialLoad: true });
+      expect(window.googletag.setConfig).toHaveBeenCalledWith({ disableInitialLoad: true, singleRequest: true });
       expect(registerAdCollectionSingleCallMock).toHaveBeenCalledTimes(1);
     });
   });

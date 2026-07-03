@@ -149,7 +149,6 @@ describe('arcads', () => {
 
   describe('dfpSettings', () => {
     const setConfigMock = jest.fn();
-    const enableSingleRequestMock = jest.fn();
     const enableAsyncRenderingMock = jest.fn();
     const enableServicesMock = jest.fn();
     const collapseEmptyDivsMock = jest.fn();
@@ -158,7 +157,6 @@ describe('arcads', () => {
     beforeAll(() => {
       global.googletag.setConfig = setConfigMock;
       global.googletag.pubads = jest.fn().mockReturnValue({
-        enableSingleRequest: enableSingleRequestMock,
         enableAsyncRendering: enableAsyncRenderingMock,
         collapseEmptyDivs: collapseEmptyDivsMock,
         addEventListener: addEventListenerMock,
@@ -174,8 +172,7 @@ describe('arcads', () => {
     it('call non-logic dependent pubads setup functions', () => {
       gpt.dfpSettings();
       expect(setConfigMock).toHaveBeenCalledTimes(1);
-      expect(setConfigMock).toHaveBeenCalledWith({ disableInitialLoad: true });
-      expect(enableSingleRequestMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledWith({ disableInitialLoad: true, singleRequest: true });
       expect(enableAsyncRenderingMock).toHaveBeenCalledTimes(1);
       expect(enableServicesMock).toHaveBeenCalledTimes(1);
       expect(collapseEmptyDivsMock).toHaveBeenCalledTimes(0);
@@ -186,8 +183,7 @@ describe('arcads', () => {
       const handleMock = jest.fn();
       gpt.dfpSettings(handleMock);
       expect(setConfigMock).toHaveBeenCalledTimes(1);
-      expect(setConfigMock).toHaveBeenCalledWith({ disableInitialLoad: true });
-      expect(enableSingleRequestMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledWith({ disableInitialLoad: true, singleRequest: true });
       expect(enableAsyncRenderingMock).toHaveBeenCalledTimes(1);
       expect(enableServicesMock).toHaveBeenCalledTimes(1);
       expect(addEventListenerMock).toHaveBeenCalledTimes(1);

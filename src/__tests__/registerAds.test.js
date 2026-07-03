@@ -174,7 +174,7 @@ describe('registerAds dimensions branches', () => {
       display: 'mobile',
       id: 'testID',
       slotname: 'testSlotname',
-      targeting: { position: 1 }
+      targeting: { position: "1" }
     };
     expect(displayAdBindMock.mock.calls[0][1]).toEqual(expectedArg2);
   });
