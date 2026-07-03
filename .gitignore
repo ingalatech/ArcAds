@@ -62,3 +62,6 @@ docs
 
 # Misc
 .DS_Store
+
+# npm publish token
+.npmrc

@@ -3,6 +3,36 @@
 
 ArcAds is a [GPT (Google Publisher Tag)](https://developers.google.com/doubleclick-gpt/) wrapper created by [Arc XP](https://www.arcxp.com/). Using ArcAds you can make use of many GPT features such as size mapping, refreshing, and targeting. In addition you can also make use of header bidding vendors such as [Prebid.js](https://prebid.org/) and [Amazon A9/TAM](https://www.a9.com/) by using the appropriate configuration.
 
+This is the [@ingala/arcads](https://github.com/ingalatech/ArcAds) fork.
+
+## Versioning
+
+This package follows [Semantic Versioning](https://semver.org/) with a
+Debian-style revision suffix to track fork-specific changes independently of
+upstream releases.
+
+```
+MAJOR.MINOR.PATCH-ingala.REVISION[-PRERELEASE]
+```
+
+- `MAJOR.MINOR.PATCH` — tracks the upstream ArcAds version this fork is based on.
+- `ingala.REVISION` — fork revision number. Incremented for each set of
+  fork-specific changes (fixes, features, maintenance).
+- `PRERELEASE` — optional label (`-alpha.N`) for unstable releases during
+  active development.
+
+### Examples
+
+| Version | Meaning |
+|---------|---------|
+| `6.2.0-ingala.0` | First stable fork release, based on upstream 6.2.0. |
+| `6.2.0-ingala.0-alpha.0` | Pre-release for the first fork revision. |
+| `6.2.0-ingala.1` | Second fork revision with additional fixes. |
+| `6.2.1-ingala.0` | Fork rebased on upstream 6.2.1, with fork-specific changes reapplied. |
+
+When a new upstream version is merged, `MAJOR.MINOR.PATCH` is updated to
+match, and the fork revision resets to `0`.
+
 ## Getting Started
 To get started you must include the script tag for ArcAds in your page header, located [here](dist/arcads.js). You can also optionally run `npm install` followed by `npm run build` to compile it yourself in case you need to make any modifications. Once included you can initialize the ArcAds wrapper class like so in your page header.
 
@@ -24,13 +54,13 @@ To get started you must include the script tag for ArcAds in your page header, l
 Alternatively, if you're using a bundler you can use the library as a module.
 
 ```
-npm install arcads 
+npm install @ingala/arcads 
 ```
 
 You can then include it in your own JavaScript projects like so.
 
 ```javascript
-import { ArcAds } from 'arcads'
+import { ArcAds } from '@ingala/arcads'
 ```
 
 ## Displaying an Advertisement
