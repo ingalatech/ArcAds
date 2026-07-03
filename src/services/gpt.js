@@ -73,10 +73,14 @@ export function queueGoogletagCommand(fn) {
 * @param {Object} options - An object containing all of the key/value targeting pairs to assign to the advertisement.
 **/
 export function setTargeting(ad, options) {
+  const targeting = {};
   for (const key in options) {
     if (options.hasOwnProperty(key) && options[key]) {
-      ad.setTargeting(key, options[key]);
+      targeting[key] = options[key];
     }
+  }
+  if (Object.keys(targeting).length > 0) {
+    ad.setConfig({ targeting });
   }
 }
 

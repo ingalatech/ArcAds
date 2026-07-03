@@ -38,7 +38,7 @@ describe('arcads', () => {
     defineOutOfPageSlot: () => global.googletag,
     defineSizeMapping: () => global.googletag,
     addService: () => global.googletag,
-    setTargeting: () => global.googletag,
+    setConfig: () => global.googletag,
     pubads: () => global.googletag,
     refresh: () => global.googletag,
     cmd: []
@@ -131,19 +131,19 @@ describe('arcads', () => {
   });
 
   describe('setTargeting', () => {
-    it('if options has key and value call ad SetTargeting', () => {
-      const setTargetingMock = jest.fn();
-      const ad = { setTargeting: setTargetingMock };
+    it('if options has key and value call ad.setConfig with targeting', () => {
+      const setConfigMock = jest.fn();
+      const ad = { setConfig: setConfigMock };
       gpt.setTargeting(ad, { testKey: 'testValue' });
-      expect(setTargetingMock).toHaveBeenCalledTimes(1);
-      expect(setTargetingMock).toHaveBeenCalledWith('testKey', 'testValue');
+      expect(setConfigMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledWith({ targeting: { testKey: 'testValue' } });
     });
 
-    it('if options has NOT key and value call ad SetTargeting', () => {
-      const setTargetingMock = jest.fn();
-      const ad = { setTargeting: setTargetingMock };
+    it('if options has no valid keys does not call setConfig', () => {
+      const setConfigMock = jest.fn();
+      const ad = { setConfig: setConfigMock };
       gpt.setTargeting(ad, { testKey: null });
-      expect(setTargetingMock).toHaveBeenCalledTimes(0);
+      expect(setConfigMock).toHaveBeenCalledTimes(0);
     });
   });
 
