@@ -21,6 +21,7 @@ module.exports = env => ({
       name: 'ArcAds',
       type: 'umd',
     },
+    globalObject: 'typeof self !== \'undefined\' ? self : this',
   },
   devtool: env.development ? 'eval-source-map' : false,
   resolve: { extensions: ['.js', '.json'] },
