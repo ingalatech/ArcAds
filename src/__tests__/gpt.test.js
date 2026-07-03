@@ -112,7 +112,7 @@ describe('arcads', () => {
 
   it('if has prerender that resolves call refresh', () => {
     window.googletag.pubadsReady = true;
-    const prerenderFnc = jest.fn();
+    const prerenderFnc = jest.fn().mockResolvedValue();
     gpt.refreshSlot({ ad: { name: 'ad' }, correlator: false, prerender: prerenderFnc, info: {} });
     expect(prerenderFnc).toHaveBeenCalledTimes(1);
   });
@@ -120,7 +120,7 @@ describe('arcads', () => {
   it('if blockarcAds load is set do not call pubads refresh', () => {
     window.googletag.pubadsReady = true;
     window.blockArcAdsLoad = true;
-    const prerenderFnc = jest.fn();
+    const prerenderFnc = jest.fn().mockResolvedValue();
 
     const refreshMock = jest.fn();
     global.googletag.pubads = jest.fn().mockReturnValue({
