@@ -98,6 +98,7 @@ describe('initializeBiddingServices', function () {
   });
 
   it('enable Amazon without id ', () => {
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
     Object.defineProperty(window, 'arcBiddingReady', {
       writable: true,
       value: false,
@@ -117,6 +118,7 @@ describe('initializeBiddingServices', function () {
 
     setTimeout(() => {
       expect(window.arcBiddingReady).toEqual(false);
+      console.warn.mockRestore();
     }, 2000);
   });
 });
