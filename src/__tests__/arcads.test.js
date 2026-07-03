@@ -167,17 +167,15 @@ describe('arcads', () => {
     });
   });
 
-  describe('setPageLeveTargeting', () => {
-    it('sets block and adds ad to adsList', () => {
-      const setTargetingMock = jest.fn();
+  describe('setPageLevelTargeting', () => {
+    it('sets page level targeting via googletag.setConfig', () => {
+      const setConfigMock = jest.fn();
 
-      window.googletag.pubads = jest.fn().mockReturnValue({
-        setTargeting: setTargetingMock,
-      });
+      window.googletag.setConfig = setConfigMock;
 
       arcAds.setPageLevelTargeting('testKey', 'testValue');
-      expect(setTargetingMock).toHaveBeenCalledTimes(1);
-      expect(setTargetingMock).toHaveBeenCalledWith('testKey', 'testValue');
+      expect(setConfigMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledWith({ targeting: { testKey: 'testValue' } });
     });
   });
 });

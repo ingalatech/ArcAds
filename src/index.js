@@ -300,7 +300,7 @@ export class ArcAds {
    * * @param {string} value Targeting parameter value or array of values.
    */
   setPageLevelTargeting(key, value) { //TODO check for pubads
-    googletag.pubads().setTargeting(key, value);
+    window.googletag.setConfig({ targeting: { [key]: value } });
   }
 
   static getWindow() {
