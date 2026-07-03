@@ -267,7 +267,7 @@ export class ArcAds {
     }
     //ensure library is present and able to send out SRA ads
     if (window && window.googletag && googletag.pubadsReady) { // eslint-disable-line
-      window.googletag.pubads().disableInitialLoad();
+      window.googletag.setConfig({ disableInitialLoad: true });
       window.googletag.pubads().enableSingleRequest();
       window.googletag.pubads().enableAsyncRendering();
 

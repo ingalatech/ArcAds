@@ -85,7 +85,7 @@ export function setTargeting(ad, options) {
 * @param {function} handleSlotRenderEnded - Callback function that gets fired whenever a GPT ad slot has finished rendering.
 **/
 export function dfpSettings(handleSlotRenderEnded) {
-  window.googletag.pubads().disableInitialLoad();
+  window.googletag.setConfig({ disableInitialLoad: true });
   window.googletag.pubads().enableSingleRequest();
   window.googletag.pubads().enableAsyncRendering();
 

@@ -148,7 +148,7 @@ describe('arcads', () => {
   });
 
   describe('dfpSettings', () => {
-    const disableInitialLoadMock = jest.fn();
+    const setConfigMock = jest.fn();
     const enableSingleRequestMock = jest.fn();
     const enableAsyncRenderingMock = jest.fn();
     const enableServicesMock = jest.fn();
@@ -156,8 +156,8 @@ describe('arcads', () => {
     const addEventListenerMock = jest.fn();
 
     beforeAll(() => {
+      global.googletag.setConfig = setConfigMock;
       global.googletag.pubads = jest.fn().mockReturnValue({
-        disableInitialLoad: disableInitialLoadMock,
         enableSingleRequest: enableSingleRequestMock,
         enableAsyncRendering: enableAsyncRenderingMock,
         collapseEmptyDivs: collapseEmptyDivsMock,
@@ -173,11 +173,11 @@ describe('arcads', () => {
 
     it('call non-logic dependent pubads setup functions', () => {
       gpt.dfpSettings();
-      expect(disableInitialLoadMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledWith({ disableInitialLoad: true });
       expect(enableSingleRequestMock).toHaveBeenCalledTimes(1);
       expect(enableAsyncRenderingMock).toHaveBeenCalledTimes(1);
       expect(enableServicesMock).toHaveBeenCalledTimes(1);
-      expect(enableAsyncRenderingMock).toHaveBeenCalledTimes(1);
       expect(collapseEmptyDivsMock).toHaveBeenCalledTimes(0);
       expect(addEventListenerMock).toHaveBeenCalledTimes(0);
     });
@@ -185,11 +185,11 @@ describe('arcads', () => {
     it('if handleSlotRenderEnded function calls addEventListener', () => {
       const handleMock = jest.fn();
       gpt.dfpSettings(handleMock);
-      expect(disableInitialLoadMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledWith({ disableInitialLoad: true });
       expect(enableSingleRequestMock).toHaveBeenCalledTimes(1);
       expect(enableAsyncRenderingMock).toHaveBeenCalledTimes(1);
       expect(enableServicesMock).toHaveBeenCalledTimes(1);
-      expect(enableAsyncRenderingMock).toHaveBeenCalledTimes(1);
       expect(addEventListenerMock).toHaveBeenCalledTimes(1);
     });
   });

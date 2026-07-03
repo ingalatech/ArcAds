@@ -145,13 +145,14 @@ describe('arcads', () => {
     it('if has adsList elems and pubads do SRA call', () => {
       arcAds.adsList = ['ad1', 'ad2'];
       window.googletag.pubadsReady = true;
+      window.googletag.setConfig = jest.fn();
       window.googletag.pubads = jest.fn().mockReturnValue({
-        disableInitialLoad: jest.fn(),
         enableSingleRequest: jest.fn(),
         enableAsyncRendering: jest.fn(),
       });
 
       arcAds.sendSingleCallAds();
+      expect(window.googletag.setConfig).toHaveBeenCalledWith({ disableInitialLoad: true });
       expect(registerAdCollectionSingleCallMock).toHaveBeenCalledTimes(1);
     });
   });
