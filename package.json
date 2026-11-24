@@ -1,6 +1,6 @@
 {
   "name": "@ingala/arcads",
-  "version": "6.2.0-ingala.0-alpha.3",
+  "version": "6.2.0-ingala.0",
   "description": "ArcAds is a GPT wrapper created by Arc XP with publishers in mind.",
   "main": "dist/arcads.js",
   "files": [
