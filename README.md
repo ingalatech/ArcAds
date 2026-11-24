@@ -7,42 +7,25 @@ This is the [@ingala/arcads](https://github.com/ingalatech/ArcAds) fork.
 
 ## Versioning
 
-This package follows [Semantic Versioning](https://semver.org/) with a
-Debian-style revision suffix to track fork-specific changes independently of
-upstream releases.
+Starting with `@ingala/arcads@6.2.1`, this fork follows its own
+[Semantic Versioning](https://semver.org/) independently of upstream ArcAds.
+The fork is based on upstream ArcAds `6.2.0`. The `6.2.1` release contains the
+same runtime code as `6.2.0-ingala.0`; its version does not indicate an upstream
+upgrade.
 
-```
-MAJOR.MINOR.PATCH-ingala.REVISION[-PRERELEASE]
-```
+- **Stable releases** use `MAJOR.MINOR.PATCH` without a suffix and are published
+  under the npm `latest` dist-tag. Use a patch for compatible fixes, a minor
+  for compatible features, and a major for breaking changes.
+- **Test builds** use `MAJOR.MINOR.PATCH-alpha.N` and are published under the
+  `alpha` dist-tag. For example, publish `6.2.2-alpha.0`, then `6.2.2-alpha.1`
+  if another build is needed. Increment `N` because npm does not allow
+  publishing the same package version twice. Publish the validated release as
+  `6.2.2`, without the suffix.
 
-- `MAJOR.MINOR.PATCH` — tracks the upstream ArcAds version this fork is based on.
-- `ingala.REVISION` — fork revision number. Incremented for each set of
-  fork-specific changes (fixes, features, maintenance).
-- `PRERELEASE` — optional label (`-alpha.N`) for unstable releases during
-  active development.
-
-### Examples
-
-| Version | Meaning |
-|---------|---------|
-| `6.2.0-ingala.0` | First stable fork release, based on upstream 6.2.0. |
-| `6.2.0-ingala.0-alpha.0` | Pre-release for the first fork revision. |
-| `6.2.0-ingala.1` | Second fork revision with additional fixes. |
-| `6.2.1-ingala.0` | Fork rebased on upstream 6.2.1, with fork-specific changes reapplied. |
-
-When a new upstream version is merged, `MAJOR.MINOR.PATCH` is updated to
-match, and the fork revision resets to `0`.
-
-npm does not allow publishing the same package version twice. Increment `N`
-in `-alpha.N` for each test build of the same fork revision and publish it
-under the `alpha` dist-tag. Once validated, publish the same code without
-`-alpha.N` under `latest` (for example, `6.2.0-ingala.0`). Increment the fork
-revision for the next set of changes, not for each test build.
-
-Production releases still have a SemVer prerelease suffix (`-ingala.REVISION`).
-For example, SemVer sorts `6.2.0-ingala.0-alpha.3` after `6.2.0-ingala.0`.
-Dist-tags do not change version ordering or range matching. Pin the exact
-version you tested in production.
+A dependency range of `^6.2.1` accepts `6.2.2` but not `6.2.2-alpha.1`.
+The old `6.2.0-ingala.*` versions remain available, but SemVer treats them as
+prereleases even when they were used in production. Update dependencies that
+use the old version scheme explicitly to adopt `6.2.1`.
 
 ## Getting Started
 To get started you must include the script tag for ArcAds in your page header, located [here](dist/arcads.js). You can also optionally run `npm install` followed by `npm run build` to compile it yourself in case you need to make any modifications. Once included you can initialize the ArcAds wrapper class like so in your page header.
