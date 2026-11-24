@@ -33,6 +33,17 @@ MAJOR.MINOR.PATCH-ingala.REVISION[-PRERELEASE]
 When a new upstream version is merged, `MAJOR.MINOR.PATCH` is updated to
 match, and the fork revision resets to `0`.
 
+npm does not allow publishing the same package version twice. Increment `N`
+in `-alpha.N` for each test build of the same fork revision and publish it
+under the `alpha` dist-tag. Once validated, publish the same code without
+`-alpha.N` under `latest` (for example, `6.2.0-ingala.0`). Increment the fork
+revision for the next set of changes, not for each test build.
+
+Production releases still have a SemVer prerelease suffix (`-ingala.REVISION`).
+For example, SemVer sorts `6.2.0-ingala.0-alpha.3` after `6.2.0-ingala.0`.
+Dist-tags do not change version ordering or range matching. Pin the exact
+version you tested in production.
+
 ## Getting Started
 To get started you must include the script tag for ArcAds in your page header, located [here](dist/arcads.js). You can also optionally run `npm install` followed by `npm run build` to compile it yourself in case you need to make any modifications. Once included you can initialize the ArcAds wrapper class like so in your page header.
 
@@ -49,7 +60,7 @@ To get started you must include the script tag for ArcAds in your page header, l
 </script>
 ```
 
-`collapseEmptyDivs` is an optional parameter that directly toggles `googletag.pubads().collapseEmptyDivs()`
+`collapseEmptyDivs` is an optional parameter that sets `googletag.setConfig({ collapseDiv: 'ON_NO_FILL' })`
 
 Alternatively, if you're using a bundler you can use the library as a module.
 

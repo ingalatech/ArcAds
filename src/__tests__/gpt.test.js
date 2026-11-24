@@ -38,7 +38,7 @@ describe('arcads', () => {
     defineOutOfPageSlot: () => global.googletag,
     defineSizeMapping: () => global.googletag,
     addService: () => global.googletag,
-    setTargeting: () => global.googletag,
+    setConfig: () => global.googletag,
     pubads: () => global.googletag,
     refresh: () => global.googletag,
     cmd: []
@@ -131,36 +131,32 @@ describe('arcads', () => {
   });
 
   describe('setTargeting', () => {
-    it('if options has key and value call ad SetTargeting', () => {
-      const setTargetingMock = jest.fn();
-      const ad = { setTargeting: setTargetingMock };
+    it('if options has key and value call ad.setConfig with targeting', () => {
+      const setConfigMock = jest.fn();
+      const ad = { setConfig: setConfigMock };
       gpt.setTargeting(ad, { testKey: 'testValue' });
-      expect(setTargetingMock).toHaveBeenCalledTimes(1);
-      expect(setTargetingMock).toHaveBeenCalledWith('testKey', 'testValue');
+      expect(setConfigMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledWith({ targeting: { testKey: 'testValue' } });
     });
 
-    it('if options has NOT key and value call ad SetTargeting', () => {
-      const setTargetingMock = jest.fn();
-      const ad = { setTargeting: setTargetingMock };
+    it('if options has no valid keys does not call setConfig', () => {
+      const setConfigMock = jest.fn();
+      const ad = { setConfig: setConfigMock };
       gpt.setTargeting(ad, { testKey: null });
-      expect(setTargetingMock).toHaveBeenCalledTimes(0);
+      expect(setConfigMock).toHaveBeenCalledTimes(0);
     });
   });
 
   describe('dfpSettings', () => {
-    const disableInitialLoadMock = jest.fn();
-    const enableSingleRequestMock = jest.fn();
+    const setConfigMock = jest.fn();
     const enableAsyncRenderingMock = jest.fn();
     const enableServicesMock = jest.fn();
-    const collapseEmptyDivsMock = jest.fn();
     const addEventListenerMock = jest.fn();
 
     beforeAll(() => {
+      global.googletag.setConfig = setConfigMock;
       global.googletag.pubads = jest.fn().mockReturnValue({
-        disableInitialLoad: disableInitialLoadMock,
-        enableSingleRequest: enableSingleRequestMock,
         enableAsyncRendering: enableAsyncRenderingMock,
-        collapseEmptyDivs: collapseEmptyDivsMock,
         addEventListener: addEventListenerMock,
       });
 
@@ -173,23 +169,20 @@ describe('arcads', () => {
 
     it('call non-logic dependent pubads setup functions', () => {
       gpt.dfpSettings();
-      expect(disableInitialLoadMock).toHaveBeenCalledTimes(1);
-      expect(enableSingleRequestMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledWith({ disableInitialLoad: true, singleRequest: true });
       expect(enableAsyncRenderingMock).toHaveBeenCalledTimes(1);
       expect(enableServicesMock).toHaveBeenCalledTimes(1);
-      expect(enableAsyncRenderingMock).toHaveBeenCalledTimes(1);
-      expect(collapseEmptyDivsMock).toHaveBeenCalledTimes(0);
       expect(addEventListenerMock).toHaveBeenCalledTimes(0);
     });
 
     it('if handleSlotRenderEnded function calls addEventListener', () => {
       const handleMock = jest.fn();
       gpt.dfpSettings(handleMock);
-      expect(disableInitialLoadMock).toHaveBeenCalledTimes(1);
-      expect(enableSingleRequestMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledTimes(1);
+      expect(setConfigMock).toHaveBeenCalledWith({ disableInitialLoad: true, singleRequest: true });
       expect(enableAsyncRenderingMock).toHaveBeenCalledTimes(1);
       expect(enableServicesMock).toHaveBeenCalledTimes(1);
-      expect(enableAsyncRenderingMock).toHaveBeenCalledTimes(1);
       expect(addEventListenerMock).toHaveBeenCalledTimes(1);
     });
   });

@@ -73,10 +73,14 @@ export function queueGoogletagCommand(fn) {
 * @param {Object} options - An object containing all of the key/value targeting pairs to assign to the advertisement.
 **/
 export function setTargeting(ad, options) {
+  const targeting = {};
   for (const key in options) {
     if (options.hasOwnProperty(key) && options[key]) {
-      ad.setTargeting(key, options[key]);
+      targeting[key] = options[key];
     }
+  }
+  if (Object.keys(targeting).length > 0) {
+    ad.setConfig({ targeting });
   }
 }
 
@@ -85,13 +89,12 @@ export function setTargeting(ad, options) {
 * @param {function} handleSlotRenderEnded - Callback function that gets fired whenever a GPT ad slot has finished rendering.
 **/
 export function dfpSettings(handleSlotRenderEnded) {
-  window.googletag.pubads().disableInitialLoad();
-  window.googletag.pubads().enableSingleRequest();
+  window.googletag.setConfig({ disableInitialLoad: true, singleRequest: true });
   window.googletag.pubads().enableAsyncRendering();
 
   if (this.collapseEmptyDivs) {
     sendLog('dfpSettings()', 'This wrapper is set to collapse any empty divs.', null);
-    window.googletag.pubads().collapseEmptyDivs();
+    window.googletag.setConfig({ collapseDiv: 'ON_NO_FILL' });
   }
   window.googletag.enableServices();
 
